@@ -1,4 +1,4 @@
-package com.start;
+package com.mureung.config;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
