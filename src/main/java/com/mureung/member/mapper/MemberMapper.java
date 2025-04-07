@@ -11,4 +11,5 @@ import com.mureung.member.dto.Member;
 @Mapper
 public interface MemberMapper {
 	List<Member> selectMemberList();
+	Member selectMember(String id);
 }
