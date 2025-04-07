@@ -4,8 +4,18 @@
 
 <mapper namespace="com.mureung.member.mapper.MemberMapper">
     <select id="selectMemberList" resultType="com.mureung.member.dto.Member">
-        SELECT   id
-        		,pw
-        FROM mu_tb_user;
+        SELECT   ID
+        		,PW
+        FROM mu_tb_user
+        INNER JOIN mu_tb_roles b ON a.id = b.id
     </select>
+    
+    <select id="selectMember" resultType="com.mureung.member.dto.Member">
+        SELECT   a.id
+        		,a.pw
+        		,b.roles
+        FROM mu_tb_user a
+        INNER JOIN mu_tb_roles b ON a.id = b.id
+        where a.id = #{id}
+    </select>    
 </mapper>
