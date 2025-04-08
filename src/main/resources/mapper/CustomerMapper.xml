@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mureung.member.mapper.MemberMapper">
+<mapper namespace="com.mureung.customer.mapper.CustomerMapper">
     <select id="selectCustomerList" resultType="com.mureung.customer.dto.Customer">
 		SELECT C.cus_no
 				, C.cus_nm
