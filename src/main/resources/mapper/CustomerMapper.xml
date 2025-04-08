@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mureung.member.mapper.MemberMapper">
+    <select id="selectCustomerList" resultType="com.mureung.customer.dto.Customer">
+		SELECT C.cus_no
+				, C.cus_nm
+				, C.cus_phone
+				, C.cus_chnnel
+				, O.order_no
+				, O.prod_nm
+				, O.conn
+				, O.con_date
+				, O.ord_date
+				, O.reg_date
+				, O.reg_nm
+				, O.upd_date
+				, O.upd_nm
+		FROM mu_tb_customer C
+		INNER JOIN mu_tb_order O ON C.cus_no = O.cus_no
+    </select>
+
+    <select id="selectCustomer" resultType="com.mureung.customer.dto.Customer">
+		SELECT C.cus_no
+				, C.cus_nm
+				, C.cus_phone
+				, C.cus_chnnel
+				, O.order_no
+				, O.prod_nm
+				, O.conn
+				, O.con_date
+				, O.ord_date
+				, O.reg_date
+				, O.reg_nm
+				, O.upd_date
+				, O.upd_nm
+		FROM mu_tb_customer C
+		INNER JOIN mu_tb_order O ON C.cus_no = O.cus_no
+        WHERE C.cus_no = #{cusNo}
+    </select>
+
+    <insert id="insertCustomer">
+		INSERT INTO mu_tb_customer(
+			cus_nm
+			, cus_phone
+			, cus_chnnel
+			, reg_nm
+			, reg_date
+			, upd_date
+			, upd_nm
+		)VALUES(
+			#{cusNm}
+			, #{cusPhone}
+			, #{cusChnnel}
+			, '무릉방앗간'
+			, now()
+			, now()
+			, '무릉방앗간'
+		)
+    </insert>
+
+    <insert id="insertOrder">
+		INSERT INTO mu_tb_order(
+			prod_nm
+			, conn
+			, con_date
+			, ord_date
+			, reg_date
+			, reg_nm
+			, upd_date
+			, upd_nm
+			, cus_no
+		)VALUES(
+			, #{prodNm}
+			, #{conn}
+			, now()
+			, #{ordDate}
+			, now()
+			, '무릉방앗간'
+			, now()
+			, '무릉방앗간'
+			, #{cusNo});
+    </insert>
+
+
+</mapper>
