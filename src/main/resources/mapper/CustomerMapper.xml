@@ -17,8 +17,19 @@
 				, O.reg_nm
 				, O.upd_date
 				, O.upd_nm
+				, O.comp_yn
 		FROM mu_tb_customer C
 		INNER JOIN mu_tb_order O ON C.cus_no = O.cus_no
+		WHERE 1=1
+		<if test="orderNo != null and orderNo != ''">
+			AND O.order_no = #{orderNo}
+		</if>
+		<if test="ordDate != null and ordDate != ''">
+			AND O.ord_date = #{ordDate}
+		</if>
+		<if test="cusNm != null and cusNm != ''">
+			AND C.cus_nm = #{cusNm}
+		</if>
     </select>
 
     <select id="selectCustomer" resultType="com.mureung.customer.dto.Customer">
@@ -40,7 +51,17 @@
         WHERE C.cus_no = #{cusNo}
     </select>
 
-    <insert id="insertCustomer">
+    <select id="selectCheckPhone" resultType="com.mureung.customer.dto.Customer">
+		SELECT C.cus_no
+				, C.cus_nm
+				, C.cus_phone
+				, C.cus_chnnel
+		FROM mu_tb_customer C
+        WHERE C.cus_phone = #{cusPhone}
+    </select>
+
+
+    <insert id="insertCustomer" parameterType="com.mureung.customer.dto.Customer" useGeneratedKeys="true" keyProperty="cusNo" keyColumn="cus_no">
 		INSERT INTO mu_tb_customer(
 			cus_nm
 			, cus_phone
@@ -71,8 +92,9 @@
 			, upd_date
 			, upd_nm
 			, cus_no
+			, comp_yn
 		)VALUES(
-			, #{prodNm}
+			#{prodNm}
 			, #{conn}
 			, now()
 			, #{ordDate}
@@ -80,8 +102,16 @@
 			, '무릉방앗간'
 			, now()
 			, '무릉방앗간'
-			, #{cusNo});
+			, #{cusNo}
+			, 'N'
+		)
     </insert>
+
+    <update id="updateCompYn">
+		UPDATE mu_tb_order
+		SET comp_yn=#{compYn}
+		WHERE order_no=#{orderNo}
+    </update>
 
 
 </mapper>

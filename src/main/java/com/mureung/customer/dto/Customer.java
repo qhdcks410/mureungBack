@@ -20,5 +20,6 @@ public class Customer{
 	private String regNm;
 	private String updDate;
 	private String updNm;
+	private String compYn;
 
 }

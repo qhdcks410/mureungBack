@@ -19,8 +19,8 @@ public class CustomerService{
     @Autowired
     private	CustomerMapper customerMapper;
 
-    public List<Customer> getCustomerList() {
-        return customerMapper.selectCustomerList();
+    public List<Customer> getCustomerList(Customer param) {
+        return customerMapper.selectCustomerList(param);
     }
 
     public Member getMember(HashMap<String,Object> param) {
@@ -28,10 +28,24 @@ public class CustomerService{
     }
 
     public void insertCustomer(Customer param) {
-    	if(customerMapper.insertCustomer(param) > 0) {
+    	Customer cus = customerMapper.selectCheckPhone(param) ;
+    	if(customerMapper.selectCheckPhone(param) == null) {
+        	customerMapper.insertCustomer(param);
+    	}else {
+    		param.setCusNo(cus.getCusNo());
+    	}
+
+    	if(!param.getCusNo().equals("")) {
+    		param.setCusNo(param.getCusNo());
     		customerMapper.insertOrder(param);
     	}
     }
+
+    public void updateCompYn(Customer param) {
+    	customerMapper.updateCompYn(param);
+    }
+
+
 
 
 
