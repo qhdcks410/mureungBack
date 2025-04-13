@@ -21,5 +21,9 @@ public class Customer{
 	private String updDate;
 	private String updNm;
 	private String compYn;
+	private String payMd;
+	private String payNt;
+	private String ordAmt;
+	private String ordTime;
 
 }

@@ -18,6 +18,10 @@
 				, O.upd_date
 				, O.upd_nm
 				, O.comp_yn
+				, O.pay_md
+				, O.pay_nt
+				, O.ord_amt
+				, O.ord_time
 		FROM mu_tb_customer C
 		INNER JOIN mu_tb_order O ON C.cus_no = O.cus_no
 		WHERE 1=1
@@ -30,6 +34,9 @@
 		<if test="cusNm != null and cusNm != ''">
 			AND C.cus_nm = #{cusNm}
 		</if>
+		<if test="cusPhone != null and cusPhone != ''">
+			AND C.cus_phone like CONCAT('%',#{cusPhone},'%')
+		</if>		
     </select>
 
     <select id="selectCustomer" resultType="com.mureung.customer.dto.Customer">
@@ -46,6 +53,9 @@
 				, O.reg_nm
 				, O.upd_date
 				, O.upd_nm
+				, O.pay_md
+				, O.pay_nt
+				, O.ord_amt				
 		FROM mu_tb_customer C
 		INNER JOIN mu_tb_order O ON C.cus_no = O.cus_no
         WHERE C.cus_no = #{cusNo}
@@ -93,6 +103,10 @@
 			, upd_nm
 			, cus_no
 			, comp_yn
+			, pay_md
+			, pay_nt
+			, ord_amt
+			, ord_time			
 		)VALUES(
 			#{prodNm}
 			, #{conn}
@@ -104,6 +118,10 @@
 			, '무릉방앗간'
 			, #{cusNo}
 			, 'N'
+			, #{payMd}
+			, #{payNt}
+			, #{ordAmt}
+			, #{ordTime}
 		)
     </insert>
 
