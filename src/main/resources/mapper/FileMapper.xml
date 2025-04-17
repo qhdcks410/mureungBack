@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mureung.common.mapper.FileMapper">
+
+    <select id="selectFile" resultType="com.mureung.common.dto.FileDto">
+		SELECT file_id
+			, orig_nm
+			, stored_path
+			, fsize
+			, mime_type
+			, server_nm
+			, reg_date
+			, reg_nm
+			, upd_date
+			, upd_nm
+			, ref_no
+		FROM mu_tb_file
+        WHERE C.ref_no = #{refNo}
+    </select>
+
+    <insert id="insertFile" parameterType="com.mureung.common.dto.FileDto" useGeneratedKeys="true" keyProperty="cusNo" keyColumn="cus_no">
+		INSERT INTO mu_tb_file
+		(
+			orig_nm
+			, stored_path
+			, fsize
+			, mime_type
+			, server_nm
+			, reg_date
+			, reg_nm
+			, ref_no
+		)VALUES(
+			#{origNm}
+			, #{storedPath}
+			, #{fsize}
+			, #{mimeType}
+			, #{serverNm}
+			, #{regDate}
+			, '무릉방앗간'
+			, #{refNo}
+		)
+    </insert>
+
+    <update id="updateFile">
+    	UPDATE mu_tb_file
+		SET
+		  orig_nm = 	#{origNm}
+		, stored_path= 	#{storedPath}
+		, fsize=		#{fsize}
+		, mime_type=	#{mimeType}
+		, server_nm=	#{serverNm}
+		, upd_date=     #{updDate}
+		, upd_nm=		#{updNm}
+		, ref_no=		#{refNo}
+		WHERE file_id=#{fileId}
+    </update>
+
+
+
+
+</mapper>

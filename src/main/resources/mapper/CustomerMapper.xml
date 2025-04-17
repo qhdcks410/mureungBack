@@ -12,8 +12,8 @@
 				, O.prod_nm
 				, O.conn
 				, O.con_date
-				, O.ord_date
-				, O.reg_date
+				, date_format(O.ord_date,'%Y-%m-%d') as ord_date
+				, date_format(O.reg_date,'%Y-%m-%d') as reg_date
 				, O.reg_nm
 				, O.upd_date
 				, O.upd_nm
@@ -36,7 +36,7 @@
 		</if>
 		<if test="cusPhone != null and cusPhone != ''">
 			AND C.cus_phone like CONCAT('%',#{cusPhone},'%')
-		</if>		
+		</if>
     </select>
 
     <select id="selectCustomer" resultType="com.mureung.customer.dto.Customer">
@@ -55,7 +55,7 @@
 				, O.upd_nm
 				, O.pay_md
 				, O.pay_nt
-				, O.ord_amt				
+				, O.ord_amt
 		FROM mu_tb_customer C
 		INNER JOIN mu_tb_order O ON C.cus_no = O.cus_no
         WHERE C.cus_no = #{cusNo}
@@ -91,7 +91,7 @@
 		)
     </insert>
 
-    <insert id="insertOrder">
+    <insert id="insertOrder" parameterType="com.mureung.customer.dto.Customer" useGeneratedKeys="true" keyProperty="orderNo" keyColumn="order_no">
 		INSERT INTO mu_tb_order(
 			prod_nm
 			, conn
@@ -106,7 +106,7 @@
 			, pay_md
 			, pay_nt
 			, ord_amt
-			, ord_time			
+			, ord_time
 		)VALUES(
 			#{prodNm}
 			, #{conn}
@@ -125,11 +125,34 @@
 		)
     </insert>
 
+    <insert id="updateOrader">
+		UPDATE mu_tb_order
+		SET
+			prod_nm 	= #{prodNm}
+			, conn   	= #{conn}
+			, con_date	= #{conDate}
+			, ord_date	= #{ordDate}
+			, upd_date	= now()
+			, upd_nm	= '무릉방앗간'
+			, pay_md	= #{payMd}
+			, pay_nt	= #{payNt}
+			, ord_amt	= #{ordAmt}
+			, ord_time	= #{ordTime}
+		WHERE order_no = #{orderNo}
+    </insert>
+
     <update id="updateCompYn">
 		UPDATE mu_tb_order
 		SET comp_yn=#{compYn}
 		WHERE order_no=#{orderNo}
     </update>
+
+    <update id="deleteOrader">
+		DELETE FROM mu_tb_order
+		WHERE order_no=#{orderNo}
+    </update>
+
+
 
 
 </mapper>

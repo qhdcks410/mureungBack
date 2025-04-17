@@ -4,8 +4,6 @@ package com.mureung.member.service;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,24 +21,22 @@ public class MemberService{
 
     @Autowired
     private MemberMapper memberMapper;
-    
+
     @Autowired
     private AuthenticationManagerBuilder authenticationManagerBuilder;
-    
+
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
-    
-    
+
+
     public List<Member> getMemberList() {
         return memberMapper.selectMemberList();
     }
-    
+
     public Member getMember(@RequestParam HashMap<String,Object> param) {
         return memberMapper.selectMember((String)param.get("id"));
     }
-    
-    
-    @Transactional
+
     public JwtToken login(HashMap<String,Object> param) throws Exception {
         // 1. username + password 를 기반으로 Authentication 객체 생성
         // 이때 authentication 은 인증 여부를 확인하는 authenticated 값이 false
@@ -55,6 +51,6 @@ public class MemberService{
 
         return jwtToken;
     }
-    
-    
+
+
 }

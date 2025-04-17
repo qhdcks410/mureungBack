@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mureung.customer.dto.Customer;
 import com.mureung.customer.service.CustomerService;
 import com.mureung.member.dto.Member;
@@ -32,13 +34,27 @@ public class CustomerController {
 	}
 
 	@PostMapping("/insertCustomer")
-	public void insertCustomer(@RequestBody Customer param){
-	    customerService.insertCustomer(param);
+	public void insertCustomer(@RequestParam(value="editorFiles", required = false) List<MultipartFile> files,@RequestParam("saveData") String saveData) throws Exception{
+		ObjectMapper objectMapper = new ObjectMapper();
+		Customer customer = objectMapper.readValue(saveData, Customer.class);
+	    customerService.insertCustomer(files,customer);
 	}
 
 	@PostMapping("/updateCompYn")
 	public void updateCompYn(@RequestBody Customer param){
 	    customerService.updateCompYn(param);
+	}
+
+	@PostMapping("/deleteOrader")
+	public void deleteOrader(@RequestBody String[] param){
+	    customerService.deleteOrader(param);
+	}
+
+	@PostMapping("/modifyOrader")
+	public void modifyOrader(@RequestParam(value="editorFiles", required = false) List<MultipartFile> files,@RequestParam("saveData") String saveData) throws Exception{
+		ObjectMapper objectMapper = new ObjectMapper();
+		Customer customer = objectMapper.readValue(saveData, Customer.class);
+	    customerService.modifyOrader(files,customer);
 	}
 
 }

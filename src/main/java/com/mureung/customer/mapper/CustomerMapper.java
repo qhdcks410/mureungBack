@@ -1,6 +1,5 @@
 package com.mureung.customer.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -15,8 +14,10 @@ public interface CustomerMapper {
 	List<Customer> selectCustomerList(Customer param);
 	Member selectCustomer(String cusNo);
 	void insertCustomer(Customer customer);
-	int insertOrder(Customer customer);
+	void insertOrder(Customer customer);
 	int updateCompYn(Customer customer);
 	Customer selectCheckPhone(Customer param);
+	int deleteOrader(String orderNo);
+	int updateOrader(Customer customer);
 
 }
