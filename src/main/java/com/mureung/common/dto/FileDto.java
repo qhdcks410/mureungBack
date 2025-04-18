@@ -12,7 +12,7 @@ public class FileDto{
 	private String fileId;
 	private String origNm;
 	private String storedPath;
-	private String fsize;
+	private long fsize;
 	private String mimeType;
 	private String serverNm;
 	private String regDate;

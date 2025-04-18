@@ -1,26 +1,18 @@
 package com.mureung.customer.service;
 
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mureung.common.mapper.FileMapper;
 import com.mureung.common.service.FileService;
 import com.mureung.customer.dto.Customer;
 import com.mureung.customer.mapper.CustomerMapper;
 import com.mureung.member.dto.Member;
-
-import io.jsonwebtoken.io.IOException;
 
 @Service
 public class CustomerService{
@@ -41,24 +33,21 @@ public class CustomerService{
 
     @Transactional
     public void insertCustomer(List<MultipartFile> files,Customer param) throws Exception  {
-//    	Customer cus = customerMapper.selectCheckPhone(param) ;
-//    	if(customerMapper.selectCheckPhone(param) == null) {
-//        	customerMapper.insertCustomer(param);
-//    	}else {
-//    		param.setCusNo(cus.getCusNo());
-//    	}
-//
-//    	if(!param.getCusNo().equals("")) {
-//    		param.setCusNo(param.getCusNo());
-//    		customerMapper.insertOrder(param);
-//    	}
-
-    	//파일이 있을떄 업로드
-    	if(!files.isEmpty()) {
-    		for (MultipartFile file : files) {
-    			fileService.insertFile(file,param);
-    		}
+    	Customer cus = customerMapper.selectCheckPhone(param) ;
+    	if(customerMapper.selectCheckPhone(param) == null) {
+        	customerMapper.insertCustomer(param);
+    	}else {
+    		param.setCusNo(cus.getCusNo());
     	}
+
+    	if(!param.getCusNo().equals("")) {
+    		param.setCusNo(param.getCusNo());
+    		customerMapper.insertOrder(param);
+    	}
+
+    	//이미지파일있을때 업로드
+    	fileService.insertFile(files,param.getOrderNo());
+
     }
 
     public void updateCompYn(Customer param) {
@@ -73,14 +62,9 @@ public class CustomerService{
     }
 
     public void modifyOrader(List<MultipartFile> files,Customer param) throws Exception{
-		//customerMapper.updateOrader(param);
-
+		customerMapper.updateOrader(param);
     	//파일이 있을떄 업로드
-    	if(!files.isEmpty()) {
-    		for (MultipartFile file : files) {
-    			fileService.updateFile(file,param);
-    		}
-    	}
+    	fileService.updateFile(files,param.getOrderNo());
     }
 
 

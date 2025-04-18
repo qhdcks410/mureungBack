@@ -4,6 +4,24 @@
 
 <mapper namespace="com.mureung.common.mapper.FileMapper">
 
+
+    <select id="selectRefFileList" resultType="com.mureung.common.dto.FileDto">
+		SELECT file_id
+			, orig_nm
+			, stored_path
+			, fsize
+			, mime_type
+			, server_nm
+			, reg_date
+			, reg_nm
+			, upd_date
+			, upd_nm
+			, ref_no
+		FROM mu_tb_file
+        WHERE ref_no = #{refNo}
+    </select>
+
+
     <select id="selectFile" resultType="com.mureung.common.dto.FileDto">
 		SELECT file_id
 			, orig_nm
@@ -17,7 +35,7 @@
 			, upd_nm
 			, ref_no
 		FROM mu_tb_file
-        WHERE C.ref_no = #{refNo}
+        WHERE file_id = #{fileId}
     </select>
 
     <insert id="insertFile" parameterType="com.mureung.common.dto.FileDto" useGeneratedKeys="true" keyProperty="cusNo" keyColumn="cus_no">
@@ -37,7 +55,7 @@
 			, #{fsize}
 			, #{mimeType}
 			, #{serverNm}
-			, #{regDate}
+			, now()
 			, '무릉방앗간'
 			, #{refNo}
 		)
@@ -56,6 +74,12 @@
 		, ref_no=		#{refNo}
 		WHERE file_id=#{fileId}
     </update>
+
+    <delete id="deleteFile">
+ 		DELETE FROM mu_tb_file
+		WHERE ref_no=	#{refNo}
+    </delete>
+
 
 
 
