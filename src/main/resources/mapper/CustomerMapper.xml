@@ -11,9 +11,9 @@
 				, O.order_no
 				, O.prod_nm
 				, O.conn
-				, O.con_date
+				, date_format(O.con_date,'%Y-%m-%d') as con_date
 				, date_format(O.ord_date,'%Y-%m-%d') as ord_date
-				, date_format(O.reg_date,'%Y-%m-%d') as reg_date
+				, O.reg_date
 				, O.reg_nm
 				, O.upd_date
 				, O.upd_nm
@@ -37,6 +37,7 @@
 		<if test="cusPhone != null and cusPhone != ''">
 			AND C.cus_phone like CONCAT('%',#{cusPhone},'%')
 		</if>
+		ORDER BY O.ord_date DESC 
     </select>
 
     <select id="selectCustomer" resultType="com.mureung.customer.dto.Customer">
