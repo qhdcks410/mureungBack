@@ -24,7 +24,7 @@ import lombok.extern.log4j.Log4j2;
 @Service
 public class FileService{
 
-	String uploadDir = "C:\\\\dev\\\\upload";
+	String uploadDir = "/var/www/html/file";
 
     @Autowired
     private	FileMapper fileMapper;

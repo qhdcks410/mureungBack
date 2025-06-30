@@ -8,12 +8,12 @@
 		<version>2.7.18</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.chaniMal</groupId>
-	<artifactId>chaniMal</artifactId>
+	<groupId>com.mureungBack</groupId>
+	<artifactId>mureungBack</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>chaniMal</name>
-	<description>chaniMal</description>
+	<name>mureungBack</name>
+	<description>mureungBack</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>

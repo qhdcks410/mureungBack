@@ -7,11 +7,11 @@
 		SELECT C.cus_no
 				, C.cus_nm
 				, C.cus_phone
-				, C.cus_chnnel
+				, O.cus_chnnel
 				, O.order_no
 				, O.prod_nm
 				, O.conn
-				, date_format(O.con_date,'%Y-%m-%d') as con_date
+				, date_format(O.con_date,'%Y-%m-%d %H:%i') as con_date
 				, date_format(O.ord_date,'%Y-%m-%d') as ord_date
 				, O.reg_date
 				, O.reg_nm
@@ -37,14 +37,14 @@
 		<if test="cusPhone != null and cusPhone != ''">
 			AND C.cus_phone like CONCAT('%',#{cusPhone},'%')
 		</if>
-		ORDER BY O.ord_date DESC 
+		ORDER BY O.ord_date DESC
     </select>
 
     <select id="selectCustomer" resultType="com.mureung.customer.dto.Customer">
 		SELECT C.cus_no
 				, C.cus_nm
 				, C.cus_phone
-				, C.cus_chnnel
+				, O.cus_chnnel
 				, O.order_no
 				, O.prod_nm
 				, O.conn
@@ -76,7 +76,6 @@
 		INSERT INTO mu_tb_customer(
 			cus_nm
 			, cus_phone
-			, cus_chnnel
 			, reg_nm
 			, reg_date
 			, upd_date
@@ -84,7 +83,6 @@
 		)VALUES(
 			#{cusNm}
 			, #{cusPhone}
-			, #{cusChnnel}
 			, '무릉방앗간'
 			, now()
 			, now()
@@ -108,6 +106,7 @@
 			, pay_nt
 			, ord_amt
 			, ord_time
+			, cus_chnnel
 		)VALUES(
 			#{prodNm}
 			, #{conn}
@@ -123,6 +122,7 @@
 			, #{payNt}
 			, #{ordAmt}
 			, #{ordTime}
+			, #{cusChnnel}
 		)
     </insert>
 
@@ -139,6 +139,7 @@
 			, pay_nt	= #{payNt}
 			, ord_amt	= #{ordAmt}
 			, ord_time	= #{ordTime}
+			, cus_chnnel = #{cusChnnel}
 		WHERE order_no = #{orderNo}
     </insert>
 
