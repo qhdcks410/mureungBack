@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mureung.member.mapper.MemberMapper">
+    <select id="selectMemberList" resultType="com.mureung.member.dto.Member">
+        SELECT   ID
+        		,PW
+        FROM mu_tb_user
+        INNER JOIN mu_tb_roles b ON a.id = b.id
+    </select>
+    
+    <select id="selectMember" resultType="com.mureung.member.dto.Member">
+        SELECT   a.id
+        		,a.pw
+        		,b.roles
+        FROM mu_tb_user a
+        INNER JOIN mu_tb_roles b ON a.id = b.id
+        where a.id = #{id}
+    </select>    
+</mapper>
