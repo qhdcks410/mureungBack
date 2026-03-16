@@ -23,10 +23,15 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 
-	@PostMapping("/getCustomerList")
-	public List<Customer> getCustomerList(@RequestBody Customer param){
-	    return customerService.getCustomerList(param);
+	@PostMapping("/getOrderList")
+	public List<Customer> getOrderList(@RequestBody Customer param){
+	    return customerService.getOrderList(param);
 	}
+
+    @PostMapping("/getCustomerList")
+    public List<Customer> selectCustomerList(){
+        return customerService.getCustomerList();
+    }
 
 	@PostMapping("/getCustomer")
 	public Member selectMember(@RequestBody HashMap<String,Object> param){

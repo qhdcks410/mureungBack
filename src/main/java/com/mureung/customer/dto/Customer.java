@@ -24,6 +24,7 @@ public class Customer{
 	private String payMd;
 	private String payNt;
 	private String ordAmt;
+    private String ordOtherAmt;
 	private String ordTime;
 
 }

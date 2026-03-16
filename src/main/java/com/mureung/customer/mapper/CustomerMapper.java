@@ -11,9 +11,10 @@ import com.mureung.member.dto.Member;
 @Repository
 @Mapper
 public interface CustomerMapper {
-	List<Customer> selectCustomerList(Customer param);
-	Member selectCustomer(String cusNo);
-	void insertCustomer(Customer customer);
+    List<Customer> selectOrderList(Customer param);
+    List<Customer> selectCustomerList();
+    Member selectCustomer(String cusNo);
+    void insertCustomer(Customer customer);
 	void insertOrder(Customer customer);
 	int updateCompYn(Customer customer);
 	Customer selectCheckPhone(Customer param);

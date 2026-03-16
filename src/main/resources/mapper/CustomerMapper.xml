@@ -3,7 +3,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mureung.customer.mapper.CustomerMapper">
+
     <select id="selectCustomerList" resultType="com.mureung.customer.dto.Customer">
+        SELECT C.cus_no
+              ,C.cus_nm
+                ,C.cus_phone
+        FROM mu_tb_customer C
+    </select>
+
+    <select id="selectOrderList" resultType="com.mureung.customer.dto.Customer">
 		SELECT C.cus_no
 				, C.cus_nm
 				, C.cus_phone
@@ -21,6 +29,7 @@
 				, O.pay_md
 				, O.pay_nt
 				, O.ord_amt
+                , O.ord_other_amt
 				, O.ord_time
 		FROM mu_tb_customer C
 		INNER JOIN mu_tb_order O ON C.cus_no = O.cus_no
@@ -29,7 +38,7 @@
 			AND O.order_no = #{orderNo}
 		</if>
 		<if test="ordDate != null and ordDate != ''">
-			AND O.ord_date = #{ordDate}
+            AND DATE_FORMAT(O.ord_date, '%Y-%m-%d') = #{ordDate}
 		</if>
 		<if test="cusNm != null and cusNm != ''">
 			AND C.cus_nm = #{cusNm}
@@ -105,6 +114,7 @@
 			, pay_md
 			, pay_nt
 			, ord_amt
+            , ord_other_amt
 			, ord_time
 			, cus_chnnel
 		)VALUES(
@@ -121,6 +131,7 @@
 			, #{payMd}
 			, #{payNt}
 			, #{ordAmt}
+            , #{ordOtherAmt}
 			, #{ordTime}
 			, #{cusChnnel}
 		)
@@ -138,6 +149,7 @@
 			, pay_md	= #{payMd}
 			, pay_nt	= #{payNt}
 			, ord_amt	= #{ordAmt}
+            , ord_amt	= #{ordOtherAmt}
 			, ord_time	= #{ordTime}
 			, cus_chnnel = #{cusChnnel}
 		WHERE order_no = #{orderNo}

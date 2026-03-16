@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mureung.dashboard.mapper.DashBoardMapper">
+    <select id="selectDashBoardList" resultType="com.mureung.dashboard.dto.DashBoard">
+        SELECT
+            IFNULL(COUNT(o.order_no),0) AS todOrdCnt,
+            IFNULL(SUM(CASE WHEN o.comp_yn = 'N' THEN 1 ELSE 0 END),0) AS pickCnt,
+            IFNULL(SUM(o.ord_amt),0) AS todAmt
+        FROM mu_tb_customer c
+        INNER JOIN  mu_tb_order o on c.cus_no  = o.cus_no
+        WHERE DATE(ord_date) = CURDATE()
+    </select>
+    <select id="selectDashBoardGraphList" resultType="com.mureung.dashboard.dto.DashBoard">
+
+        WITH RECURSIVE months AS (
+        -- 현재 연도의 1월 1일부터 시작
+        SELECT DATE_FORMAT(CURDATE(), '%Y-01-01') AS month_dt
+        UNION ALL
+        -- 12월까지 1개월씩 증가
+        SELECT DATE_ADD(month_dt, INTERVAL 1 MONTH)
+        FROM months
+        WHERE month_dt <![CDATA[<]]> DATE_FORMAT(CURDATE(), '%Y-12-01')
+        )
+        SELECT
+        -- '2026-01' 대신 '01월', '02월' 형태로 출력
+        DATE_FORMAT(m.month_dt, '%m월') AS dt,
+        COALESCE(SUM(o.ord_amt), 0) AS total_amt
+        FROM months m
+        LEFT JOIN mu_tb_order o
+        ON  o.ord_date >= m.month_dt
+        AND o.ord_date <![CDATA[<]]> DATE_ADD(m.month_dt, INTERVAL 1 MONTH)
+        GROUP BY m.month_dt
+        ORDER BY m.month_dt ASC;
+    </select>
+</mapper>

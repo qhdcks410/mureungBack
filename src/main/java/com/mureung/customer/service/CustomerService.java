@@ -23,8 +23,12 @@ public class CustomerService{
     @Autowired
     private	FileService fileService;
 
-    public List<Customer> getCustomerList(Customer param) {
-        return customerMapper.selectCustomerList(param);
+    public List<Customer> getOrderList(Customer param) {
+        return customerMapper.selectOrderList(param);
+    }
+
+    public List<Customer> getCustomerList() {
+        return customerMapper.selectCustomerList();
     }
 
     public Member getMember(HashMap<String,Object> param) {
@@ -66,13 +70,5 @@ public class CustomerService{
     	//파일이 있을떄 업로드
     	fileService.updateFile(files,param.getOrderNo());
     }
-
-
-
-
-
-
-
-
 
 }
