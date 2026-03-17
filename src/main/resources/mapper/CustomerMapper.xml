@@ -149,7 +149,7 @@
 			, pay_md	= #{payMd}
 			, pay_nt	= #{payNt}
 			, ord_amt	= #{ordAmt}
-            , ord_amt	= #{ordOtherAmt}
+            , ord_other_amt	= #{ordOtherAmt}
 			, ord_time	= #{ordTime}
 			, cus_chnnel = #{cusChnnel}
 		WHERE order_no = #{orderNo}

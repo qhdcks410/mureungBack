@@ -1,6 +1,5 @@
 package com.mureung.dashboard.controller;
 
-import com.mureung.customer.dto.Customer;
 import com.mureung.dashboard.dto.DashBoard;
 import com.mureung.dashboard.service.DashBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,11 @@ public class DashBoardController {
     @PostMapping("/getDashBoardGraphList")
     public List<DashBoard> getDashBoardGraphList(){
         return dashBoardService.getDashBoardGraphList();
+    }
+
+    @PostMapping("/getMonthDashBoardList")
+    public List<DashBoard> getMonthDashBoardList(){
+        return dashBoardService.getMonthDashBoardList();
     }
 
 

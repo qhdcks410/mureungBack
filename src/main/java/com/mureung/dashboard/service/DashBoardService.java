@@ -22,4 +22,8 @@ public class DashBoardService {
     public List<DashBoard> getDashBoardGraphList() {
         return dashBoardMapper.selectDashBoardGraphList();
     }
+
+    public List<DashBoard> getMonthDashBoardList() {
+        return dashBoardMapper.selectMonthDashBoardList();
+    }
 }

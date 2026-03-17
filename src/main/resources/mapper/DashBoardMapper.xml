@@ -34,4 +34,27 @@
         GROUP BY m.month_dt
         ORDER BY m.month_dt ASC;
     </select>
+
+    <select id="selectMonthDashBoardList" resultType="com.mureung.dashboard.dto.DashBoard">
+        WITH MonthlySales AS (
+            SELECT
+            IFNULL(SUM(CASE WHEN DATE_FORMAT(ord_date, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m') THEN ord_amt ELSE 0 END), 0) AS curMonthAmt,
+            IFNULL(SUM(CASE WHEN DATE_FORMAT(ord_date, '%Y-%m') = DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m') THEN ord_amt ELSE 0 END), 0) AS preMonthAmt
+            FROM mu_tb_order
+        )
+        SELECT
+        curMonthAmt AS monAmt,
+        preMonthAmt AS lastAmt,
+        CASE
+        -- 전달 매출은 0인데 이번 달 매출이 있는 경우 100%로 표시
+        WHEN preMonthAmt = 0 AND curMonthAmt > 0 THEN 100.0
+        -- 둘 다 0이면 변동 없음(0%)
+        WHEN preMonthAmt = 0 AND curMonthAmt = 0 THEN 0.0
+        -- 일반적인 경우 소수점 첫째 자리까지 계산 (감소 시 마이너스 자동 표시)
+        ELSE ROUND(((curMonthAmt - preMonthAmt) / preMonthAmt) * 100, 1)
+        END AS growthRate
+        FROM MonthlySales;
+    </select>
+
+
 </mapper>

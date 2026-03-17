@@ -13,5 +13,10 @@ public class DashBoard {
 
     private String dt;
     private Integer totalAmt;
+    private Integer monAmt;
+    private Integer lastAmt;
+    private Integer growthRate;
+
+
 
 }

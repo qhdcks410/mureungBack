@@ -14,4 +14,6 @@ public interface DashBoardMapper {
     List<DashBoard> selectDashBoardList();
 
     List<DashBoard> selectDashBoardGraphList();
+
+    List<DashBoard> selectMonthDashBoardList();
 }
