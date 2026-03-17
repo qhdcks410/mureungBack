@@ -30,11 +30,13 @@ public class MyBatisConfig {
 
 
     @Bean(name = "SqlSessionFactory")
-    public SqlSessionFactory SqlSessionFactory(@Qualifier("dataSource") DataSource DataSource, ApplicationContext applicationContext) throws Exception {
+    public SqlSessionFactory SqlSessionFactory(@Qualifier("dataSource") DataSource DataSource, ApplicationContext applicationContext,LoginUserInterceptor loginUserInterceptor) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(DataSource);
         sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis-config.xml"));
         sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources(mPath));
+        // 중요: 인터셉터를 직접 등록해야 합니다.
+        sqlSessionFactoryBean.setPlugins(loginUserInterceptor);
         return sqlSessionFactoryBean.getObject();
     }
 

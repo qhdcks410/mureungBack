@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.mureung.common.dto.BaseDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,7 +13,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Member implements UserDetails {
+public class Member implements UserDetails  {
 	
 	private static final long serialVersionUID = 1L;
 	

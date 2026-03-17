@@ -56,7 +56,7 @@
 			, #{mimeType}
 			, #{serverNm}
 			, now()
-			, '무릉방앗간'
+			, #{_loginUserId}
 			, #{refNo}
 		)
     </insert>

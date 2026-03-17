@@ -1,11 +1,12 @@
 package com.mureung.dashboard.dto;
 
+import com.mureung.common.dto.BaseDto;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class DashBoard {
+public class DashBoard extends BaseDto {
 
     private Integer todOrdCnt;
     private Integer pickCnt;

@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FileDto{
+public class FileDto extends BaseDto{
 
 	private String cusNo;
 	private String cusNm;

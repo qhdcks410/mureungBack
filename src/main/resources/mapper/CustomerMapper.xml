@@ -92,10 +92,10 @@
 		)VALUES(
 			#{cusNm}
 			, #{cusPhone}
-			, '무릉방앗간'
+			, #{_loginUserId}
 			, now()
 			, now()
-			, '무릉방앗간'
+			, #{_loginUserId}
 		)
     </insert>
 
@@ -123,9 +123,9 @@
 			, now()
 			, #{ordDate}
 			, now()
-			, '무릉방앗간'
+			, #{_loginUserId}
 			, now()
-			, '무릉방앗간'
+			, #{_loginUserId}
 			, #{cusNo}
 			, 'N'
 			, #{payMd}
@@ -145,7 +145,7 @@
 			, con_date	= #{conDate}
 			, ord_date	= #{ordDate}
 			, upd_date	= now()
-			, upd_nm	= '무릉방앗간'
+			, upd_nm	= #{_loginUserId}
 			, pay_md	= #{payMd}
 			, pay_nt	= #{payNt}
 			, ord_amt	= #{ordAmt}

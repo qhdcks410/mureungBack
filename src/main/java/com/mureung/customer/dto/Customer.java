@@ -1,11 +1,12 @@
 package com.mureung.customer.dto;
 
+import com.mureung.common.dto.BaseDto;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Customer{
+public class Customer extends BaseDto {
 
 	private String cusNo;
 	private String cusNm;
