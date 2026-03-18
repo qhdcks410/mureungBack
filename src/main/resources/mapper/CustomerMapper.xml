@@ -49,6 +49,32 @@
 		ORDER BY O.ord_date DESC
     </select>
 
+    <select id="selectBatchOrderList" resultType="com.mureung.customer.dto.Customer">
+        SELECT C.cus_no
+        , C.cus_nm
+        , C.cus_phone
+        , O.cus_chnnel
+        , O.order_no
+        , O.prod_nm
+        , O.conn
+        , DATE_FORMAT(O.con_date, '%H:%i') AS con_date
+        , DATE_FORMAT(O.ord_date, '%Y-%m-%d') AS ord_date
+        , O.reg_date
+        , O.reg_nm
+        , O.upd_date
+        , O.upd_nm
+        , O.comp_yn
+        , O.pay_md
+        , O.pay_nt
+        , O.ord_amt
+        , O.ord_other_amt
+        , O.ord_time
+        FROM mu_tb_customer C
+        INNER JOIN mu_tb_order O ON C.cus_no = O.cus_no
+        WHERE DATE_FORMAT(O.con_date, '%Y-%m-%d') = DATE_SUB(CURDATE(), INTERVAL 1 DAY)
+        ORDER BY O.con_date ASC
+    </select>
+
     <select id="selectCustomer" resultType="com.mureung.customer.dto.Customer">
 		SELECT C.cus_no
 				, C.cus_nm

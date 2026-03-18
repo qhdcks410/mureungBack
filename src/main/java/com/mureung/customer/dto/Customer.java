@@ -24,8 +24,8 @@ public class Customer extends BaseDto {
 	private String compYn;
 	private String payMd;
 	private String payNt;
-	private String ordAmt;
-    private String ordOtherAmt;
+	private Integer ordAmt;
+    private Integer ordOtherAmt;
 	private String ordTime;
 
 }

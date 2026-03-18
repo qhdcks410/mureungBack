@@ -13,6 +13,7 @@ import com.mureung.member.dto.Member;
 public interface CustomerMapper {
     List<Customer> selectOrderList(Customer param);
     List<Customer> selectCustomerList();
+    List<Customer> selectBatchOrderList();
     Member selectCustomer(String cusNo);
     void insertCustomer(Customer customer);
 	void insertOrder(Customer customer);
