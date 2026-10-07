@@ -39,6 +39,7 @@ public class SecurityConfig {
                         // 해당 API에 대해서는 모든 요청을 허가
                         .antMatchers("/member/login").permitAll()
                         .antMatchers("/file/image/view/*").permitAll()
+                        .antMatchers("/api/*").permitAll()
                         .antMatchers("/member/auth/refresh").hasRole("USER")
                         // USER 권한이 있어야 요청할 수 있음
                         .antMatchers("/member/getMember").hasRole("USER")
